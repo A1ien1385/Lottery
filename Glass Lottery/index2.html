@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Lottery</title>
+    
+<style>
+  :root {
+      --green: #38ccae;
+      --dark: #1b1b1b;
+  }
+
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        
+    }
+
+    body 
+    {
+       
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(to right top, var(--dark), var(--green));
+        overflow: hidden;
+        
+    }
+
+    .container
+    {
+        position: relative;
+    }
+
+    .boxLottery
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 30vh;
+        width: 100vw;
+
+        background: linear-gradient(to right top, rgba(0, 0, 0, .75), rgba(0, 0, 0, .25));
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .losuj
+    {
+        display: block;
+        margin: 20px auto 50px;
+        padding: 10px 50px;
+        font-size: 22px;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .losuj::after
+     {
+         content: "";
+         height: 10%;
+         width: 100%;
+         position: absolute;
+         top: 0;
+         left: -100%;
+         background: var(--green);
+         transition: .5s linear;
+     }
+
+     .losuj:hover::after
+     {
+         left: 0;
+     }
+
+     .losuj::before
+     {
+         content: "";
+         height: 10%;
+         width: 100%;
+         position: absolute;
+         bottom: 0;
+         right: -100%;
+         background: var(--green);
+         transition: .5s linear;
+     }
+
+     .losuj:hover::before
+     {
+         right: 0;
+     }
+
+    
+
+    .refresh
+    {
+        margin: 20px;
+    }
+
+    h1
+    {
+        font-size: 40px;
+        font-family: monospace;
+        color: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button
+     {
+         background: linear-gradient(to right top, rgba(0, 0, 0, .75), rgba(0, 0, 0, .25));
+         color: var(--green);
+         border: 1px solid var(--green);
+         font-size: 22px;
+         border-radius: 5px 20px 5px;
+         padding: 10px; 
+         cursor: pointer; 
+         backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+     }
+
+     
+    svg 
+     {
+        position: absolute;
+         width: 250px;
+         opacity: .3;
+     }
+
+    .atom
+     {
+         animation: atom 10s linear infinite;
+         transition: transform 10s;  
+      }
+
+     .atom:hover
+     {
+         transform: rotate(360deg);
+     }
+
+     @keyframes atom 
+     {
+         0% {top: -30%; left: -20%; }
+         100% {top: 100%; left: 30%; }
+     }
+
+     .cube 
+     {
+           animation: cube 12s 3s linear both infinite;
+           transition: transform 10s;
+     }
+
+     .cube:hover
+     {
+         transform: rotate3d(1, 1, 1, 360deg) ;
+     }
+   
+     @keyframes cube
+     {
+         0% {bottom: -30%; right: -20%;}
+         100% {bottom: 100%; right: 50%;}
+     } 
+     
+     .sphere
+     {
+         animation: sphere 15s 2s linear both infinite;
+         transition: transform 7s;
+     }
+
+     .sphere:hover
+     {
+        transform: matrix3d(1,0,0,0,0,1,6,0,0,0,1,0,50,100,0,1.1);
+     }
+
+     @keyframes sphere {
+         0% {bottom: -30%; left: -20%;}
+         100% {bottom: 100%; left: 50%;}
+     }
+
+     .bactery
+     {
+         animation: bactery 15s linear infinite;
+     }
+
+     @keyframes bactery {
+         0% {right: 20%; bottom: -30%; transform: rotate(0deg);}
+         100% {right: 30%; bottom: 130%; transform: rotate(360deg);}
+     }
+
+     .dice
+     {
+         width: 20vw;
+         top: 30%;
+         left: 10%;
+         animation: dice 30s ease infinite both;
+     }
+
+     @keyframes dice {
+         0% {opacity: 0; transform: rotate(0deg);}
+         50% {opacity: .2;}
+         100% { opacity: 0; transform: rotate(360deg);}
+     }
+     
+     .refresh
+     {
+         animation: refresh 5s linear infinite both;
+     }
+
+     .refresh:hover
+     {
+         color: var(--dark);
+         background-color: var(--green);
+     }
+
+     @keyframes refresh {
+       0%{transform: translateX(0);}
+       90%{transform: translateX(0);}
+       91%{transform: translateX(20px);}
+       92%{transform: translateX(-20px);} 
+       93%{transform: translateX(20px);}
+       94%{transform: translateX(-20px);} 
+       95%{transform: translateX(20px);}
+       96%{transform: translateX(-20px);} 
+       97%{transform: translateX(20px);}
+       98%{transform: translateX(-20px);}
+       99%{transform: translateX(20px);}
+       100%{transform: translateX(0);}           
+     }
+     
+</style>
+
+</head>
+<body>
+
+    <svg class="dice" viewBox="0 0 480 512" width="100" title="dice-d20">
+        <path d="M106.75 215.06L1.2 370.95c-3.08 5 .1 11.5 5.93 12.14l208.26 22.07-108.64-190.1zM7.41 315.43L82.7 193.08 6.06 147.1c-2.67-1.6-6.06.32-6.06 3.43v162.81c0 4.03 5.29 5.53 7.41 2.09zM18.25 423.6l194.4 87.66c5.3 2.45 11.35-1.43 11.35-7.26v-65.67l-203.55-22.3c-4.45-.5-6.23 5.59-2.2 7.57zm81.22-257.78L179.4 22.88c4.34-7.06-3.59-15.25-10.78-11.14L17.81 110.35c-2.47 1.62-2.39 5.26.13 6.78l81.53 48.69zM240 176h109.21L253.63 7.62C250.5 2.54 245.25 0 240 0s-10.5 2.54-13.63 7.62L130.79 176H240zm233.94-28.9l-76.64 45.99 75.29 122.35c2.11 3.44 7.41 1.94 7.41-2.1V150.53c0-3.11-3.39-5.03-6.06-3.43zm-93.41 18.72l81.53-48.7c2.53-1.52 2.6-5.16.13-6.78l-150.81-98.6c-7.19-4.11-15.12 4.08-10.78 11.14l79.93 142.94zm79.02 250.21L256 438.32v65.67c0 5.84 6.05 9.71 11.35 7.26l194.4-87.66c4.03-1.97 2.25-8.06-2.2-7.56zm-86.3-200.97l-108.63 190.1 208.26-22.07c5.83-.65 9.01-7.14 5.93-12.14L373.25 215.06zM240 208H139.57L240 383.75 340.43 208H240z" />
+      </svg>
+
+    
+    <svg class="atom" viewBox="0 0 448 512" width="100" title="atom">
+        <path d="M223.99908,224a32,32,0,1,0,32.00782,32A32.06431,32.06431,0,0,0,223.99908,224Zm214.172-96c-10.877-19.5-40.50979-50.75-116.27544-41.875C300.39168,34.875,267.63386,0,223.99908,0s-76.39066,34.875-97.89653,86.125C50.3369,77.375,20.706,108.5,9.82907,128-6.54984,157.375-5.17484,201.125,34.958,256-5.17484,310.875-6.54984,354.625,9.82907,384c29.13087,52.375,101.64652,43.625,116.27348,41.875C147.60842,477.125,180.36429,512,223.99908,512s76.3926-34.875,97.89652-86.125c14.62891,1.75,87.14456,10.5,116.27544-41.875C454.55,354.625,453.175,310.875,413.04017,256,453.175,201.125,454.55,157.375,438.171,128ZM63.33886,352c-4-7.25-.125-24.75,15.00391-48.25,6.87695,6.5,14.12891,12.875,21.88087,19.125,1.625,13.75,4,27.125,6.75,40.125C82.34472,363.875,67.09081,358.625,63.33886,352Zm36.88478-162.875c-7.752,6.25-15.00392,12.625-21.88087,19.125-15.12891-23.5-19.00392-41-15.00391-48.25,3.377-6.125,16.37891-11.5,37.88478-11.5,1.75,0,3.875.375,5.75.375C104.09864,162.25,101.84864,175.625,100.22364,189.125ZM223.99908,64c9.50195,0,22.25586,13.5,33.88282,37.25-11.252,3.75-22.50391,8-33.88282,12.875-11.377-4.875-22.62892-9.125-33.88283-12.875C201.74516,77.5,214.49712,64,223.99908,64Zm0,384c-9.502,0-22.25392-13.5-33.88283-37.25,11.25391-3.75,22.50587-8,33.88283-12.875C235.378,402.75,246.62994,407,257.8819,410.75,246.25494,434.5,233.501,448,223.99908,448Zm0-112a80,80,0,1,1,80-80A80.00023,80.00023,0,0,1,223.99908,336ZM384.6593,352c-3.625,6.625-19.00392,11.875-43.63479,11,2.752-13,5.127-26.375,6.752-40.125,7.75195-6.25,15.00391-12.625,21.87891-19.125C384.7843,327.25,388.6593,344.75,384.6593,352ZM369.65538,208.25c-6.875-6.5-14.127-12.875-21.87891-19.125-1.625-13.5-3.875-26.875-6.752-40.25,1.875,0,4.002-.375,5.752-.375,21.50391,0,34.50782,5.375,37.88283,11.5C388.6593,167.25,384.7843,184.75,369.65538,208.25Z" />
+      </svg>
+
+      <svg class="cube" viewBox="0 0 448 512" width="100" title="dice-d6">
+        <path d="M422.19 109.95L256.21 9.07c-19.91-12.1-44.52-12.1-64.43 0L25.81 109.95c-5.32 3.23-5.29 11.27.06 14.46L224 242.55l198.14-118.14c5.35-3.19 5.38-11.22.05-14.46zm13.84 44.63L240 271.46v223.82c0 12.88 13.39 20.91 24.05 14.43l152.16-92.48c19.68-11.96 31.79-33.94 31.79-57.7v-197.7c0-6.41-6.64-10.43-11.97-7.25zM0 161.83v197.7c0 23.77 12.11 45.74 31.79 57.7l152.16 92.47c10.67 6.48 24.05-1.54 24.05-14.43V271.46L11.97 154.58C6.64 151.4 0 155.42 0 161.83z" />
+      </svg>
+
+      <svg class="sphere" viewBox="0 0 496 512" width="100" title="globe">
+        <path d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.7 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.9 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.6c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.5-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.2 212.5 0 233.8 0 256s3.2 43.5 8.6 64h114.6c-2-21-3.2-42.5-3.2-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.9-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.7-50-141.6h-108z" />
+      </svg>
+
+      <svg class="bactery" viewBox="0 0 512 512" width="100" title="virus">
+        <path d="M483.55,227.55H462c-50.68,0-76.07-61.27-40.23-97.11L437,115.19A28.44,28.44,0,0,0,396.8,75L381.56,90.22c-35.84,35.83-97.11,10.45-97.11-40.23V28.44a28.45,28.45,0,0,0-56.9,0V50c0,50.68-61.27,76.06-97.11,40.23L115.2,75A28.44,28.44,0,0,0,75,115.19l15.25,15.25c35.84,35.84,10.45,97.11-40.23,97.11H28.45a28.45,28.45,0,1,0,0,56.89H50c50.68,0,76.07,61.28,40.23,97.12L75,396.8A28.45,28.45,0,0,0,115.2,437l15.24-15.25c35.84-35.84,97.11-10.45,97.11,40.23v21.54a28.45,28.45,0,0,0,56.9,0V462c0-50.68,61.27-76.07,97.11-40.23L396.8,437A28.45,28.45,0,0,0,437,396.8l-15.25-15.24c-35.84-35.84-10.45-97.12,40.23-97.12h21.54a28.45,28.45,0,1,0,0-56.89ZM224,272a48,48,0,1,1,48-48A48,48,0,0,1,224,272Zm80,56a24,24,0,1,1,24-24A24,24,0,0,1,304,328Z" />
+      </svg>
+    
+     
+
+    <div class="container">
+    <button class="refresh">Odśwież</button>
+    <div class="boxLottery">
+    <button class = "losuj">Losuj liczbę od 1 do 10
+        
+    </button>
+    <h1>?</h1>
+    </div>
+</div>
+
+<script>
+ const refresh = document.querySelector('.refresh');
+ const losuj = document.querySelector('.losuj');
+ const h1 = document.querySelector('h1');
+ const array = [1,2,3,4,5,6,7,8,9,10]
+
+function lottery()
+{
+         const index = Math.floor(Math.random() * array.length);
+         h1.textContent = `Wylosowałeś liczbę: ${array[index]}`;
+}
+
+function clear()
+{
+    h1.textContent = "?";
+}
+
+refresh.addEventListener('click', clear)
+losuj.addEventListener('click', lottery);
+</script>
+</body>
+</html>
